@@ -31,8 +31,8 @@ app.post("/api/create-checkout-session", async (req,res) => {
   const session = await stripe.checkout.sessions.create({
     mode:"payment",
     line_items:items,
-    success_url:`${req.protocol}://${req.get("host")}/?success=1`,
-    cancel_url:`${req.protocol}://${req.get("host")}/?cancel=1`
+success_url: "https://voltika-boutique.onrender.com/?success=1",
+cancel_url: "https://voltika-boutique.onrender.com/?cancel=1"
   });
   res.json({url:session.url});
 });
