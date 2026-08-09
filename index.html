@@ -1,39 +1,49 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Voltika — Accessoires mobiles</title>
+<meta name="description" content="Voltika — chargeurs, câbles et accessoires mobiles.">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<header>
+<header class="header">
   <a class="logo" href="/">VOLTIKA</a>
   <nav>
-    <a href="#produits">Boutique</a><a href="#categories">Catégories</a><a href="#a-propos">À propos</a>
+    <a href="#produits">Boutique</a>
+    <a href="#categories">Catégories</a>
+    <a href="#a-propos">À propos</a>
   </nav>
-  <button id="cartBtn" class="cart">Panier <span id="cartCount">0</span></button>
+  <button id="cartBtn" class="cart-btn">Panier <span id="cartCount">0</span></button>
 </header>
 
 <section class="hero">
-  <div>
+  <div class="hero-copy">
     <p class="eyebrow">ÉNERGIE · CONNECTIVITÉ · MOBILITÉ</p>
     <h1>Les bons accessoires,<br>sans complication.</h1>
-    <p class="lead">Chargeurs, câbles et accessoires sélectionnés pour accompagner tes appareils au quotidien.</p>
-    <a class="btn" href="#produits">Découvrir la boutique</a>
+    <p>Des accessoires utiles, simples et sélectionnés pour accompagner tes appareils au quotidien.</p>
+    <a class="primary" href="#produits">Découvrir la boutique</a>
   </div>
 </section>
 
 <section id="categories" class="categories">
-  <button data-filter="Tous">Tout</button><button data-filter="Chargeurs">Chargeurs</button>
-  <button data-filter="Câbles">Câbles</button><button data-filter="Sans fil">Sans fil</button><button data-filter="Voiture">Voiture</button>
+  <button class="cat active" data-filter="Tous">Tout</button>
+  <button class="cat" data-filter="Chargeurs">Chargeurs</button>
+  <button class="cat" data-filter="Câbles">Câbles</button>
+  <button class="cat" data-filter="Sans fil">Sans fil</button>
+  <button class="cat" data-filter="Voiture">Voiture</button>
 </section>
 
 <main id="produits">
-  <div class="section-head"><h2>Nos essentiels</h2><input id="search" placeholder="Rechercher un produit…"></div>
+  <div class="section-head">
+    <div><p class="eyebrow">BOUTIQUE</p><h2>Nos essentiels</h2></div>
+    <input id="search" type="search" placeholder="Rechercher un produit…">
+  </div>
   <div id="grid" class="grid"></div>
 </main>
 
-<section id="a-propos" class="trust">
+<section class="trust" id="a-propos">
   <div><strong>Livraison suivie</strong><span>Suivi de commande disponible</span></div>
   <div><strong>Paiement sécurisé</strong><span>Checkout Stripe</span></div>
   <div><strong>Support client</strong><span>Une boutique pensée pour être simple</span></div>
@@ -41,13 +51,29 @@
 
 <footer>© 2026 Voltika — Boutique d’accessoires mobiles</footer>
 
-<aside id="drawer" class="drawer">
-  <div class="drawer-head"><h2>Ton panier</h2><button id="closeCart">×</button></div>
+<div id="overlay"></div>
+<aside id="drawer" class="drawer" aria-label="Panier">
+  <div class="drawer-head"><h2>Ton panier</h2><button id="closeCart" class="icon">×</button></div>
   <div id="cartItems"></div>
   <div class="total"><span>Total</span><strong id="total">0,00 €</strong></div>
-  <button id="checkout" class="btn full">Payer</button>
-  <p id="checkoutMsg" class="msg"></p>
+  <button id="checkout" class="primary full">Payer</button>
+  <p id="checkoutMsg" class="message"></p>
 </aside>
-<div id="overlay"></div>
+
+<div id="productModal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <button id="closeModal" class="icon">×</button>
+    <img id="modalImage" alt="">
+    <div class="modal-info">
+      <small id="modalCategory"></small>
+      <h2 id="modalName"></h2>
+      <p id="modalDescription"></p>
+      <strong id="modalPrice"></strong>
+      <button id="modalAdd" class="primary">Ajouter au panier</button>
+    </div>
+  </div>
+</div>
+
 <script src="/app.js"></script>
-</body></html>
+</body>
+</html>
