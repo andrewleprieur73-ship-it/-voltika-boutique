@@ -2,7 +2,22 @@ let products=[], cart=JSON.parse(localStorage.getItem("voltika-cart")||"[]"), fi
 const €=n=>(n/100).toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
 const grid=document.querySelector("#grid"), search=document.querySelector("#search");
 
-async function load(){products=await fetch("/api/products").then(r=>r.json()); render(); updateCart();}
+async function load(){
+  try{
+    const r=await fetch("/api/products");
+    if(!r.ok) throw new Error("API");
+    products=await r.json();
+  }catch(e){
+    products=[
+      {id:"usb-c-20w",name:"Chargeur USB-C 20W Nova",price:1290,category:"Chargeurs",image:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=700&q=80"},
+      {id:"cable-usbc",name:"Câble USB-C tressé 2m",price:990,category:"Câbles",image:"https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=700&q=80"},
+      {id:"mag-stand",name:"Support de charge magnétique",price:2490,category:"Sans fil",image:"https://images.unsplash.com/photo-1609592424848-5f8c1d4f9e1f?auto=format&fit=crop&w=700&q=80"},
+      {id:"car-charger",name:"Chargeur voiture double USB-C",price:1990,category:"Voiture",image:"https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=700&q=80"}
+    ];
+  }
+  render();
+  updateCart();
+}
 function render(){
  const q=(search.value||"").toLowerCase();
  const list=products.filter(p=>(filter==="Tous"||p.category===filter)&&p.name.toLowerCase().includes(q));
