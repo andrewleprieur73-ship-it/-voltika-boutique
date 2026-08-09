@@ -47,8 +47,7 @@ function add(id) {
   }
 
   localStorage.setItem("voltika-cart", JSON.stringify(cart));
+
+  document.querySelector("#cartCount").textContent =
+    cart.reduce((total, i) => total + i.qty, 0);
 }
-
-search?.addEventListener("input", render);
-
-load();
