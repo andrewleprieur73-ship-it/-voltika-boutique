@@ -1,7 +1,7 @@
 let products=[], cart=JSON.parse(localStorage.getItem("voltika-cart")||"[]"), filter="Tous";
 const €=n=>(n/100).toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
 const grid=document.querySelector("#grid"), search=document.querySelector("#search");
-
+const search=document.querySelector("#search");
 async function load(){
   try{
     const r=await fetch("/api/products");
