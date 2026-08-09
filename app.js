@@ -19,9 +19,22 @@ async function load(){
   updateCart();
 }
 function render(){
- const q=(search.value||"").toLowerCase();
- const list=products.filter(p=>(filter==="Tous"||p.category===filter)&&p.name.toLowerCase().includes(q));
- grid.innerHTML=list.map(p=>`<article class="card"><img src="${p.image}" alt=""><div class="card-body"><small>${p.category}</small><h3>${p.name}</h3><div class="price">${€(p.price)}</div><button class="add" onclick="add('${p.id}')">Ajouter au panier</button></div></article>`).join("");
+  const q=(search.value||"").toLowerCase();
+
+  const list=products.filter(p=>{
+    const okFilter=filter==="Tous" || p.category===filter;
+    const okSearch=!q || p.name.toLowerCase().includes(q);
+    return okFilter && okSearch;
+  });
+
+  grid.innerHTML=list.map(p=>`
+    <article class="product">
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${money(p.price)}</p>
+      <button onclick="add('${p.id}')">Ajouter au panier</button>
+    </article>
+  `).join("");
 }
 function add(id){const x=cart.find(i=>i.id===id);x?x.quantity++:cart.push({id,quantity:1});save();}
 function save(){localStorage.setItem("voltika-cart",JSON.stringify(cart));updateCart();}
